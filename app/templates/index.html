@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Conference Bingo</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <span class="game-title">🎯 Bingo</span>
+    </div>
+    <div class="header-right">
+      <span id="player-name" class="player-name"></span>
+    </div>
+  </header>
+
+  <!-- Registration Modal -->
+  <div id="registration-modal" class="modal-overlay" style="display:none;">
+    <div class="modal-content">
+      <h2>Conference Bingo!</h2>
+      <p>Enter your name to get your bingo card</p>
+      <input type="text" id="player-name-input" placeholder="Your name" maxlength="20" autocomplete="off">
+      <button id="register-btn" class="btn-primary">Get My Card</button>
+    </div>
+  </div>
+
+  <!-- Toast container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Confetti Canvas -->
+  <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
+
+  <main>
+    <!-- Winners Ticker -->
+    <div class="winners-ticker">
+      <span class="winners-ticker-label">🏆 Bingo:</span>
+      <span id="winners-content" class="winners-ticker-content">
+        <span class="winners-ticker-empty">No winners yet — be the first!</span>
+      </span>
+    </div>
+
+    <!-- Bingo Board -->
+    <div id="bingo-board" class="bingo-board"></div>
+
+    <!-- Actions -->
+    <div class="bingo-actions">
+      <button id="bingo-btn" class="btn-bingo" style="display:none;" disabled>BINGO!</button>
+      <div id="won-msg" class="bingo-won-msg" style="display:none;"></div>
+    </div>
+  </main>
+
+  <script src="/static/js/bingo.js"></script>
+</body>
+</html>

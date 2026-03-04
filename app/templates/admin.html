@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conference Bingo — Admin</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <a href="/" class="nav-link">← Back to Game</a>
+    </div>
+    <h1 class="game-title">Bingo Admin</h1>
+    <div class="header-right"></div>
+  </header>
+
+  <main class="admin-main">
+    <!-- Login -->
+    <div id="admin-login" class="admin-section">
+      <h2>Admin Login</h2>
+      <div class="add-square-form">
+        <input type="password" id="admin-password" placeholder="Admin password">
+        <button id="admin-login-btn" class="btn-primary">Login</button>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div id="admin-content" style="display:none;">
+      <section class="admin-section">
+        <h2>📊 Stats</h2>
+        <div class="admin-stats">
+          <div class="admin-stat">
+            <div class="admin-stat-value" id="stat-players">-</div>
+            <div class="admin-stat-label">Players</div>
+          </div>
+          <div class="admin-stat">
+            <div class="admin-stat-value" id="stat-cards">-</div>
+            <div class="admin-stat-label">Cards</div>
+          </div>
+          <div class="admin-stat">
+            <div class="admin-stat-value" id="stat-winners">-</div>
+            <div class="admin-stat-label">Winners</div>
+          </div>
+          <div class="admin-stat">
+            <div class="admin-stat-value" id="stat-squares">-</div>
+            <div class="admin-stat-label">Squares</div>
+          </div>
+        </div>
+        <button id="reset-btn" class="btn-reset">Reset Game (New Cards for Everyone)</button>
+      </section>
+
+      <!-- Squares -->
+      <section class="admin-section">
+        <h2>🎯 Bingo Squares</h2>
+        <ul id="square-list" class="square-list"></ul>
+        <div class="add-square-form">
+          <input type="text" id="new-square-text" placeholder="New square text..." maxlength="200">
+          <button id="add-square-btn" class="btn-primary">Add</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="/static/js/admin.js"></script>
+</body>
+</html>
