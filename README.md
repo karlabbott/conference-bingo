@@ -2,8 +2,6 @@
 
 An interactive bingo game for conference talks — attendees each get a randomized 5×5 card with talk-themed squares and tap them as events happen during the presentation. First to complete a row, column, or diagonal gets announced to everyone with confetti!
 
-Built for **"Microsoft for Red Hat Teams: Modern RHEL Operations on Azure with Copilot"**.
-
 ![Bingo](https://img.shields.io/badge/game-Conference_Bingo-538d4e?style=for-the-badge)
 
 ## Features
