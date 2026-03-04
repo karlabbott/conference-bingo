@@ -112,10 +112,6 @@ Visit `/admin` and enter the admin password to:
 
 ## Default Bingo Squares (48)
 
-Themed to RHEL + Azure + Copilot operations:
-
-> "Copilot writes a bash script" · "A systemctl command appears" · "Someone mentions RHEL 9" · "A live demo works first try" · "Azure CLI is used" · "SELinux is mentioned" · "sudo is used" · "The audience laughs" · and 40 more...
-
 Customize via the admin panel before your talk!
 
 ## License
