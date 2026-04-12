@@ -105,6 +105,11 @@ def admin_page():
     return render_template('admin.html')
 
 
+@bp.route('/board')
+def board_page():
+    return render_template('board.html')
+
+
 # ---------------------------------------------------------------------------
 # Player API
 # ---------------------------------------------------------------------------

@@ -95,7 +95,7 @@
       renderBoard();
       updateBingoButton();
       if (hasWon) {
-        wonMsg.textContent = '🎉 You got BINGO! (' + data.win_pattern + ')';
+        wonMsg.textContent = '🎉 You got BINGO!';
         wonMsg.style.display = 'block';
         bingoBtn.style.display = 'none';
       }
@@ -196,13 +196,13 @@
       if (res.ok) {
         var data = await res.json();
         hasWon = true;
-        wonMsg.textContent = '🎉 BINGO! You won! (' + data.pattern + ')';
+        wonMsg.textContent = '🎉 You got BINGO!';
         wonMsg.style.display = 'block';
         bingoBtn.style.display = 'none';
         launchConfetti();
         showToast('🎉 BINGO! Congratulations!', 5000);
         loadWinners();
-      } else {
+      }else {
         var err = await res.json().catch(function () { return {}; });
         showToast(err.error || 'Not a valid bingo', 3000);
       }
