@@ -372,10 +372,10 @@
 
           const isNew = index >= knownWinnerCount && !isFirstLoad;
           const newClass = isNew ? 'new' : '';
-          const delay = index * 0.05;
+          const animStyle = isNew ? `animation-delay: ${(index - knownWinnerCount) * 0.05}s` : 'opacity: 1; animation: none';
 
           html += `
-            <div class="winner-card ${newClass}" style="animation-delay: ${delay}s">
+            <div class="winner-card ${newClass}" style="${animStyle}">
               <div class="card-header">
                 <span class="rank ${rankClass}">#${rank}</span>
                 <span class="player-name">${escapeHtml(winner.name)}</span>
