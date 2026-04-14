@@ -107,6 +107,7 @@ Visit `/admin` and enter the admin password to:
 | POST | `/api/mark` | Mark/unmark a square |
 | POST | `/api/bingo` | Claim bingo (server validates) |
 | GET | `/api/winners` | Live winners feed |
+| GET | `/api/player-count` | Current player count |
 | GET | `/api/admin/stats` | Game statistics |
 | POST | `/api/admin/squares` | Add a square |
 | DELETE | `/api/admin/squares/:id` | Remove a square |

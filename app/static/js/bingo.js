@@ -21,6 +21,14 @@
   var winnersContent = document.getElementById('winners-content');
   var confettiCanvas = document.getElementById('confetti-canvas');
 
+  var bingoMessages = [
+    '🎉 You got BINGO!',
+    '🎉 BINGO! SELinux couldn\'t stop you.',
+    '🎉 BINGO! That was faster than the deployment.',
+    '🎉 BINGO! Tell the person next to you.',
+    '🎉 BINGO! The agent approves.'
+  ];
+
   // --- Init ---
   async function init() {
     try {
@@ -31,6 +39,8 @@
         playerNameEl.textContent = data.name || '';
         await loadCard();
         startWinnersPolling();
+        startHintPulse();
+        startPlayerCountPolling();
       } else {
         showModal();
       }
@@ -66,8 +76,18 @@
         playerRegistered = true;
         playerNameEl.textContent = data.name || name;
         hideModal();
+        var greetings = [
+          'Good luck, ' + name + '. You\'re going to need it.',
+          'Welcome, ' + name + '. May the squares be ever in your favor.',
+          'Let\'s go, ' + name + '. First BINGO wins bragging rights.',
+          name + '! Your card is ready. Eyes on the demo.',
+          'Welcome aboard, ' + name + '. Watch closely.'
+        ];
+        showToast(greetings[Math.floor(Math.random() * greetings.length)], 4000);
         await loadCard();
         startWinnersPolling();
+        startHintPulse();
+        startPlayerCountPolling();
       } else {
         var err = await res.json().catch(function () { return {}; });
         showToast(err.error || 'Registration failed', 3000);
@@ -95,7 +115,7 @@
       renderBoard();
       updateBingoButton();
       if (hasWon) {
-        wonMsg.textContent = '🎉 You got BINGO!';
+        wonMsg.textContent = bingoMessages[Math.floor(Math.random() * bingoMessages.length)];
         wonMsg.style.display = 'block';
         bingoBtn.style.display = 'none';
       }
@@ -125,8 +145,11 @@
   }
 
   async function handleCellClick(e) {
-    if (hasWon) return;
     var cell = e.currentTarget;
+    cell.classList.remove('tap-pop');
+    void cell.offsetWidth;
+    cell.classList.add('tap-pop');
+    if (hasWon) return;
     var pos = parseInt(cell.dataset.position, 10);
     var isMarked = markedSet.has(pos);
     var action = isMarked ? 'unmark' : 'mark';
@@ -196,7 +219,7 @@
       if (res.ok) {
         var data = await res.json();
         hasWon = true;
-        wonMsg.textContent = '🎉 You got BINGO!';
+        wonMsg.textContent = bingoMessages[Math.floor(Math.random() * bingoMessages.length)];
         wonMsg.style.display = 'block';
         bingoBtn.style.display = 'none';
         launchConfetti();
@@ -241,6 +264,33 @@
   function startWinnersPolling() {
     loadWinners();
     setInterval(loadWinners, 5000);
+  }
+
+  function startHintPulse() {
+    setInterval(function () {
+      if (hasWon) return;
+      var cells = board.querySelectorAll('.bingo-cell:not(.marked):not(.free)');
+      if (cells.length === 0) return;
+      var target = cells[Math.floor(Math.random() * cells.length)];
+      target.classList.add('hint-pulse');
+      setTimeout(function () { target.classList.remove('hint-pulse'); }, 1500);
+    }, 8000);
+  }
+
+  function startPlayerCountPolling() {
+    function updateCount() {
+      fetch('/api/player-count')
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          var el = document.getElementById('player-count');
+          if (el && data.count > 0) {
+            el.textContent = data.count + ' playing';
+          }
+        })
+        .catch(function () {});
+    }
+    updateCount();
+    setInterval(updateCount, 10000);
   }
 
   // --- Confetti ---

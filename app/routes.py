@@ -114,6 +114,12 @@ def board_page():
 # Player API
 # ---------------------------------------------------------------------------
 
+@bp.route('/api/player-count')
+def player_count():
+    result = query_db('SELECT COUNT(*) as count FROM players', one=True)
+    return jsonify({'count': result['count']})
+
+
 @bp.route('/api/register', methods=['POST'])
 def register():
     data = request.get_json(silent=True) or {}
