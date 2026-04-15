@@ -6,6 +6,7 @@ from flask import Blueprint, jsonify, make_response, render_template, request
 
 from .config import Config
 from .db import execute_db, query_db
+from . import limiter
 
 bp = Blueprint('main', __name__)
 
@@ -83,10 +84,10 @@ def _get_current_player():
 
 
 def _require_admin():
+    if not Config.ADMIN_ENABLED:
+        return False
     auth = request.headers.get('X-Admin-Password', '')
-    if not auth:
-        auth = request.args.get('admin_password', '')
-    if auth != Config.ADMIN_PASSWORD:
+    if not auth or auth != Config.ADMIN_PASSWORD:
         return False
     return True
 
@@ -102,6 +103,8 @@ def index():
 
 @bp.route('/admin')
 def admin_page():
+    if not Config.ADMIN_ENABLED:
+        return 'Not found', 404
     return render_template('admin.html')
 
 
@@ -121,6 +124,7 @@ def player_count():
 
 
 @bp.route('/api/register', methods=['POST'])
+@limiter.limit("10/minute")
 def register():
     data = request.get_json(silent=True) or {}
     name = data.get('name', '').strip()
@@ -280,6 +284,7 @@ def mark_square():
 # ---------------------------------------------------------------------------
 
 @bp.route('/api/bingo', methods=['POST'])
+@limiter.limit("5/minute")
 def claim_bingo():
     player, fp = _get_current_player()
     if not player:
@@ -357,6 +362,7 @@ def winners():
 # ---------------------------------------------------------------------------
 
 @bp.route('/api/admin/squares')
+@limiter.limit("5/minute")
 def list_squares():
     if not _require_admin():
         return jsonify({'error': 'Unauthorized'}), 401
@@ -365,6 +371,7 @@ def list_squares():
 
 
 @bp.route('/api/admin/squares', methods=['POST'])
+@limiter.limit("5/minute")
 def add_square():
     if not _require_admin():
         return jsonify({'error': 'Unauthorized'}), 401
@@ -382,6 +389,7 @@ def add_square():
 
 
 @bp.route('/api/admin/squares/<int:square_id>', methods=['DELETE'])
+@limiter.limit("5/minute")
 def delete_square(square_id):
     if not _require_admin():
         return jsonify({'error': 'Unauthorized'}), 401
@@ -390,6 +398,7 @@ def delete_square(square_id):
 
 
 @bp.route('/api/admin/stats')
+@limiter.limit("5/minute")
 def admin_stats():
     if not _require_admin():
         return jsonify({'error': 'Unauthorized'}), 401
@@ -406,6 +415,7 @@ def admin_stats():
 
 
 @bp.route('/api/admin/reset', methods=['POST'])
+@limiter.limit("2/minute")
 def reset_game():
     if not _require_admin():
         return jsonify({'error': 'Unauthorized'}), 401

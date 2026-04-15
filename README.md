@@ -79,10 +79,10 @@ nano config.env
 ```
 
 Edit these values:
-- `BINGO_HOSTNAME` — Your domain name
-- `SECRET_KEY` — A random secret key
-- `DB_PASSWORD` — A strong database password
+- `SECRET_KEY` — A random secret key (auto-generated if not set)
+- `DATABASE_URL` — PostgreSQL connection string
 - `ADMIN_PASSWORD` — Password for the admin panel
+- `ADMIN_ENABLED` — Set to `true` to enable the admin panel (disabled by default)
 
 ### 2. Run setup
 
