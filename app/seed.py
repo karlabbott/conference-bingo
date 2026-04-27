@@ -38,18 +38,18 @@ SQUARES = [
     "A git command is run",
     "Networking is configured",
     "Copilot SSHs into a server",
-    "postgresql-setup --initdb appears",
-    "setsebool is used",
+    "The speaker mentions Ansible",
+    'The speaker says "codify"',
     "The speaker mentions SELinux denials",
-    "restorecon is run",
-    "certbot issues a certificate",
+    'The speaker says "blast radius"',
+    'The speaker says "idempotent"',
     "Grafana dashboard is shown",
     "The speaker checks his phone",
     "CPU usage spikes on screen",
     'The speaker says "judgment"',
     "Copilot kills a runaway process",
     "The app goes live on your phone",
-    "nginx config is written",
+    "A runbook is mentioned",
 ]
 
 
